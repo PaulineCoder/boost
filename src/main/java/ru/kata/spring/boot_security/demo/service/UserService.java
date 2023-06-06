@@ -16,4 +16,6 @@ public interface UserService extends UserDetailsService {
     void update( User user);
 
     void delete(long id);
+
+    String getRolesWithout(String username);
 }

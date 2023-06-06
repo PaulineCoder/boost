@@ -21,13 +21,13 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @RequestMapping("/getAll")
+    @GetMapping("/getAll")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.listUsers());
         return "admin";
     }
 
-    @RequestMapping("/getOne")
+    @GetMapping("/getOne")
     @ResponseBody
     public User showUser(long id) {
         return userService.showUser(id);
@@ -39,13 +39,13 @@ public class AdminController {
         return "redirect:/admin/getAll";
     }
 
-    @RequestMapping(value = "/update", method = {RequestMethod.PUT, RequestMethod.GET})
+    @PutMapping(value = "/update")
     public String update(User user) {
         userService.update(user);
         return "redirect:/admin/getAll";
     }
 
-    @RequestMapping(value = "/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+    @DeleteMapping(value = "/delete")
     public String delete(long id) {
         userService.delete(id);
         return "redirect:/admin/getAll";
@@ -54,7 +54,6 @@ public class AdminController {
     @ModelAttribute
     public void getUsername(Authentication authentication, Model model) {
         model.addAttribute("usernameUser", authentication.getName());
-        model.addAttribute("rolesUser", Arrays.toString(authentication.getAuthorities().toArray()).replace("[", "")
-                .replace("]", ""));
+        model.addAttribute("rolesUser", userService.getRolesWithout(authentication.getName()));
     }
 }

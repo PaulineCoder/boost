@@ -27,7 +27,7 @@
     <div class="row">
         <div th:switch="${user.getRoleName()}" class="col-md-2 nav-pills p-1 m-0" style="background-color: white">
             <div th:case="'ROLE_ADMIN'">
-                <nav sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link">
+                <nav sec:authorize="hasRole('ADMIN')" class="nav-link">
                     <form th:action="@{/admin/getAll}" th:method="get">
                         <a href="/admin/getAll" th:method="get">Admin</a>
                     </form>
@@ -39,7 +39,7 @@
                 </nav>
             </div>
             <div th:case="'ROLE_USER'">
-                <nav sec:authorize="hasRole('USER')" class="nav-link active">
+                <nav sec:authorize="hasAnyRole('USER','ADMIN')" class="nav-link active">
                     <form th:action="@{/user/}" th:method="get">
                         <a class="text-light" href="/user/" th:method="get">User</a>
                     </form>

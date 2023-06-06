@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -30,6 +31,7 @@ public class UserServiceImp implements UserService {
         } else {
             user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
         }
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -70,5 +72,12 @@ public class UserServiceImp implements UserService {
         User user = userRepository.findByUsername(username);
         if (user != null) return user;
         throw new UsernameNotFoundException("User ‘" + username + "’ not found");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public String getRolesWithout(String username) {
+        User user = userRepository.findByUsername(username);
+        return user.getRolesWithout();
     }
 }
