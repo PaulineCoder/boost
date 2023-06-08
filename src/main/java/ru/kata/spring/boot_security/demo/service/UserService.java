@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -17,5 +18,7 @@ public interface UserService extends UserDetailsService {
 
     void delete(long id);
 
-    String getRolesWithout(String username);
+    String getCurrentUserRoles(Authentication authentication);
+
+    String getCurrentUsername(Authentication authentication);
 }

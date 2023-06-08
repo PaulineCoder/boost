@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.Arrays;
-
 @Controller
 public class UserController {
     private final UserService userService;
@@ -26,9 +24,8 @@ public class UserController {
     }
 
     @ModelAttribute
-    public void getUsername(Authentication authentication, Model model) {
-        model.addAttribute("usernameUser", authentication.getName());
-        model.addAttribute("rolesUser", Arrays.toString(authentication.getAuthorities().toArray()).replace("[", "")
-                .replace("]", ""));
+    public void getUserInfo( Authentication authentication, Model model) {
+        model.addAttribute("usernameUser", userService.getCurrentUsername(authentication));
+        model.addAttribute("rolesUser", userService.getCurrentUserRoles(authentication));
     }
 }

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.Arrays;
-
 
 @Controller
 @RequestMapping("/admin")
@@ -52,8 +50,8 @@ public class AdminController {
     }
 
     @ModelAttribute
-    public void getUsername(Authentication authentication, Model model) {
-        model.addAttribute("usernameUser", authentication.getName());
-        model.addAttribute("rolesUser", userService.getRolesWithout(authentication.getName()));
+    public void getUsername( Authentication authentication, Model model) {
+        model.addAttribute("usernameUser", userService.getCurrentUsername(authentication));
+        model.addAttribute("rolesUser", userService.getCurrentUserRoles(authentication));
     }
 }

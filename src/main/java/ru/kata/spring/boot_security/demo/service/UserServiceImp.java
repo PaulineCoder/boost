@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -76,8 +77,14 @@ public class UserServiceImp implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public String getRolesWithout(String username) {
-        User user = userRepository.findByUsername(username);
+    public String getCurrentUserRoles(Authentication authentication) {
+        User user = userRepository.findByUsername(authentication.getName());
         return user.getRolesWithout();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public String getCurrentUsername(Authentication authentication) {
+      return authentication.getName();
     }
 }
