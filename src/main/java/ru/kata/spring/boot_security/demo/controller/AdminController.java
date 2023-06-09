@@ -25,12 +25,6 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/getOne")
-    @ResponseBody
-    public User showUser(long id) {
-        return userService.showUser(id);
-    }
-
     @PostMapping("/addNew")
     public String addNew(User user) {
         userService.add(user);

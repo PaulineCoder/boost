@@ -69,9 +69,9 @@
                                 <td th:utext="${user.getAge()}"></td>
                                 <td th:utext="${user.getEmail()}"></td>
                                 <td th:utext="${user.getRolesWithout()}"></td>
-                                <td><a th:href="@{/admin/getOne/(id=${user.getId()})}" class="btn btn-primary"
+                                <td><a th:href="${user}" class="btn btn-primary"
                                        id="editButton">Edit</a></td>
-                                <td><a th:href="@{/admin/getOne/(id=${user.getId()})}" class="btn btn-danger"
+                                <td><a th:href="${user}" class="btn btn-danger"
                                        id="deleteButton">Delete</a>
                                 </td>
                             </tr>
